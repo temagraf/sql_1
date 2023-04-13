@@ -32,15 +32,22 @@ where trim(district) like 'K%a' and trim(district) not like '% %';
 
 Получите из таблицы платежей за прокат фильмов информацию по платежам, которые выполнялись в промежуток с 15 июня 2005 года по 18 июня 2005 года **включительно** и стоимость которых превышает 10.00.
 ```sql
-select payment_date as Дата_платежа, amount as Сумма_платежа from payment
-where date(payment_date) >= '2005-06-15' and date(payment_date) <= '2005-06-18' and amount > 10.00;
-
+select * from payment
+where date(payment_date) >= '2005-06-15' and date(payment_date) <= '2005-06-18' and amount > 10.00
+order by payment_date asc;
 ```
 
 ---
 ## Задание 3
 
 Получите последние пять аренд фильмов.
+```sql
+select r.rental_date as Дата, f.title as Фильм
+from rental r
+join inventory i on i.inventory_id = r.inventory_id
+join film f on i.film_id = f.film_id
+order by r.rental_date desc limit 5;
+```
 
 ---
 ## Задание 4
@@ -50,15 +57,29 @@ where date(payment_date) >= '2005-06-15' and date(payment_date) <= '2005-06-18' 
 Сформируйте вывод в результат таким образом:
 - все буквы в фамилии и имени из верхнего регистра переведите в нижний регистр,
 - замените буквы 'll' в именах на 'pp'.
+```sql
+select c.first_name as Имя, c.last_name as Фамилия, lower(c.first_name) as Имя_нижний, replace(lower(c.first_name), 'll', 'pp') as Имя_замена
+from customer c
+where c.active = 1 and (trim(c.first_name) like 'Kelly' or trim(c.first_name) like 'Willie')
+order by c.last_name asc;
+```
 
 ---
 ## Задание 5*
 
 Выведите Email каждого покупателя, разделив значение Email на две отдельных колонки: в первой колонке должно быть значение, указанное до @, во второй — значение, указанное после @.
+```sql
+select lower(c.email) as Почтовый_адрес, lower(substring_index(c.email, '@', 1)) as Почтовый_адрес_до, right(c.email, length(c.email)-position('@' in c.email)) as Почтовый_адрес_после
+from customer c
+order by c.email asc;
+```
 
 ---
 ## Задание 6*
 
 Доработайте запрос из предыдущего задания, скорректируйте значения в новых колонках: первая буква должна быть заглавной, остальные — строчными.
+```sql
+
+```
 
 ---

@@ -23,14 +23,19 @@
 
 Получите уникальные названия районов из таблицы с адресами, которые начинаются на “K” и заканчиваются на “a” и не содержат пробелов.
 ```sql
-select address_name from address
-where address_name = 'K*a' AND address_name != '* *'
+select district as Районы from address
+where trim(district) like 'K%a' and trim(district) not like '% %';
 ```
 
 ---
 ## Задание 2
 
 Получите из таблицы платежей за прокат фильмов информацию по платежам, которые выполнялись в промежуток с 15 июня 2005 года по 18 июня 2005 года **включительно** и стоимость которых превышает 10.00.
+```sql
+select payment_date as Дата_платежа, amount as Сумма_платежа from payment
+where date(payment_date) >= '2005-06-15' and date(payment_date) <= '2005-06-18' and amount > 10.00;
+
+```
 
 ---
 ## Задание 3

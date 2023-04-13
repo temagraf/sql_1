@@ -79,7 +79,9 @@ order by c.email asc;
 
 Доработайте запрос из предыдущего задания, скорректируйте значения в новых колонках: первая буква должна быть заглавной, остальные — строчными.
 ```sql
-
+select lower(c.email) as Почтовый_адрес, concat(upper(left(substring_index(c.email, '@', 1), 1)), lower(substring(substring_index(c.email, '@', 1)))) as Почтовый_адрес_до, concat(upper(left(substring_index(c.email, '@', 1), 1)), lower(right(c.email, length(c.email)-position('@' in c.email)))) as Почтовый_адрес_после
+from customer c
+order by c.email asc;
 ```
 
 ---

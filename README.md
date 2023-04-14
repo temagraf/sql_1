@@ -24,7 +24,7 @@
 Получите уникальные названия районов из таблицы с адресами, которые начинаются на “K” и заканчиваются на “a” и не содержат пробелов.
 ```sql
 select district as Районы from address
-where trim(district) like 'K%a' and district not like '% %';
+where district like 'K%a' and district not like '% %';
 ```
 
 ---
